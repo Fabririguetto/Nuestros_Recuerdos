@@ -24,7 +24,7 @@
       <button id="btn-toggle-music" class="text-xs font-semibold px-1.5 py-1 text-stone-700 hover:text-rose-600 transition">
         ♫ <span id="music-state-text">Cargando música...</span>
       </button>
-      <audio id="local-audio" loop autoplay class="hidden" src="./assets/musica.mp3"></audio>
+      <audio id="local-audio" loop preload="auto" playsinline class="hidden" src="./assets/musica.mp3"></audio>
     </div>
   </header>
 
@@ -57,7 +57,7 @@
               Carta Inicial
             </span>
             <span id="memory-counter" class="text-[11px] font-bold text-stone-400">
-              1 / 5
+              1 / 15
             </span>
           </div>
 
