@@ -1,287 +1,180 @@
-// ==========================================
-// CONTENIDO DEL SOBRE (Carta Inicial + 13 Fotos + Carta Final)
-// ==========================================
-const SLIDES = [
-  // --- CARTA INICIAL ---
-  {
-    type: "letter",
-    badge: "Carta Inicial",
-    title: "Para Ti, Con Todo Mi Cariño",
-    paragraphs: [
-      "Quise armar este pequeño rincón digital para guardar algunos de nuestros momentos favoritos.",
-      "Cada una de estas fotos tiene una canción, una historia y una sonrisa detrás. Desliza para recorrerlos juntos..."
-    ],
-    signature: "Con amor ❤️"
-  },
+:root {
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
 
-  // --- LAS 13 FOTOS CON SUS FRASES Y AUTORES ---
-  {
-    type: "photo",
-    title: "Fito Páez",
-    text: "“Tengo tu amor y me basta para ser feliz.”",
-    img: "./assets/foto1.jpeg"
-  },
-  {
-    type: "photo",
-    title: "Los Piojos",
-    text: "“Sé que te acordás de mí, yo no me olvido más de vos.”",
-    img: "./assets/foto2.jpeg"
-  },
-  {
-    type: "photo",
-    title: "Las Pastillas del Abuelo",
-    text: "“Sos el paisaje más soñado y en cualquier clima te elijo.”",
-    img: "./assets/foto3.jpeg"
-  },
-  {
-    type: "photo",
-    title: "Gustavo Cerati",
-    text: "“Tu amor es un templo, un refugio en la tormenta.”",
-    img: "./assets/foto4.jpeg"
-  },
-  {
-    type: "photo",
-    title: "Andrés Calamaro",
-    text: "“Si no te tuviera a vos, el mundo sería tan gris.”",
-    img: "./assets/foto5.jpeg"
-  },
-  {
-    type: "photo",
-    title: "Charly García",
-    text: "“Quiero ver, quiero entrar, y ser parte de tu historia.”",
-    img: "./assets/foto6.jpeg"
-  },
-  {
-    type: "photo",
-    title: "Luis Alberto Spinetta",
-    text: "“Cada vez que te miro, vuelvo a creer en los milagros.”",
-    img: "./assets/foto7.jpeg"
-  },
-  {
-    type: "photo",
-    title: "Fito Páez",
-    text: "“Te quiero tanto que me hace daño amarte más.”",
-    img: "./assets/foto8.jpeg"
-  },
-  {
-    type: "photo",
-    title: "Gustavo Cerati",
-    text: "“Un amor real es lo único que nos va a salvar.”",
-    img: "./assets/foto9.jpeg"
-  },
-  {
-    type: "photo",
-    title: "Andrés Calamaro",
-    text: "“Brindo por las noches que me das, por tu mirada infinita.”",
-    img: "./assets/foto10.jpeg"
-  },
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  overflow-x: hidden;
+  transition: background 0.8s ease;
+  background: #fcb69f;
+}
 
-  {
-    type: "photo",
-    title: "Soda Stereo",
-    text: "“Mereces lo que sueñas, y sos todo lo que alguna vez soñé.”",
-    img: "./assets/foto11.jpeg"
-  },
-  {
-    type: "photo",
-    title: "Charly García",
-    text: "“Y si mañana es como ayer otra vez, lo que fue hermoso será hermoso también.”",
-    img: "./assets/foto12.jpeg"
-  },
-  {
-    type: "photo",
-    title: "Fito Páez",
-    text: "“Quién dijo que todo está perdido, yo vengo a ofrecer mi corazón.”",
-    img: "./assets/foto13.jpeg"
-  },
+.font-handwriting {
+  font-family: 'Caveat', cursive;
+}
 
-  // --- CARTA FINAL ---
-  {
-    type: "letter",
-    badge: "Carta Final",
-    title: "Por Muchos Más Capítulos",
-    paragraphs: [
-      "Gracias por ser parte de mi vida y por cada momento compartido.",
-      "Este sobre se cierra, pero nuestra historia sigue sumando recuerdos todos los días. ¡Te quiero muchísimo!"
-    ],
-    signature: "Siempre juntos ✨"
-  }
-];
+/* Temas de fondo */
+body.theme-0 {
+  background: radial-gradient(circle at 50% 25%, #ffecd2 0%, #fcb69f 55%, #ee7752 100%);
+}
+body.theme-1 {
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  color: #f3f4f6;
+}
+body.theme-2 {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 60%, #d299c2 100%);
+}
+body.theme-3 {
+  background: radial-gradient(circle at center, #f5efe6 20%, #e8dcce 70%, #c8b6a6 100%);
+}
+body.theme-4 {
+  background: radial-gradient(circle at 50% 30%, #fff1f2 0%, #fecdd3 55%, #fda4af 100%);
+}
 
-// ==========================================
-// LÓGICA DE LA APLICACIÓN
-// ==========================================
-document.addEventListener("DOMContentLoaded", () => {
-  const envelope = document.getElementById("envelope");
-  const waxSeal = document.getElementById("wax-seal");
-  const btnMainAction = document.getElementById("btn-main-action");
-  
-  const slideContent = document.getElementById("slide-content");
-  const slideBadge = document.getElementById("slide-badge");
-  const memoryCounter = document.getElementById("memory-counter");
-  const dotsIndicator = document.getElementById("dots-indicator");
-  const btnPrev = document.getElementById("btn-prev");
-  const btnNext = document.getElementById("btn-next");
+/* Scrollbar sutil para cartas largas */
+.custom-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: rgba(244, 63, 94, 0.3);
+  border-radius: 9999px;
+}
 
-  const viewLetter = document.getElementById("view-letter");
-  const letterTitle = document.getElementById("letter-title");
-  const letterBody = document.getElementById("letter-body");
-  const letterSign = document.getElementById("letter-sign");
+/* Botón 3D */
+.push-btn-3d {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 38px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: linear-gradient(180deg, #f43f5e, #be123c);
+  border: none;
+  border-radius: 9999px;
+  box-shadow: 0 8px 0 #881337, 0 15px 25px rgba(190, 18, 60, 0.35);
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
 
-  const viewPhoto = document.getElementById("view-photo");
-  const memoryImg = document.getElementById("memory-img");
-  const memoryTitle = document.getElementById("memory-title");
-  const memoryText = document.getElementById("memory-text");
+.push-btn-3d:hover {
+  filter: brightness(1.05);
+}
 
-  const audio = document.getElementById("local-audio");
-  const btnToggleMusic = document.getElementById("btn-toggle-music");
-  const musicStateText = document.getElementById("music-state-text");
-  const eqIndicator = document.getElementById("eq-indicator");
+.push-btn-3d:active {
+  transform: translateY(5px);
+  box-shadow: 0 3px 0 #881337, 0 6px 12px rgba(190, 18, 60, 0.25);
+}
 
-  let isOpen = false;
-  let currentIndex = 0;
-  let userPausedManually = false;
+/* Geometría del sobre 3D */
+.envelope-wrapper {
+  perspective: 1400px;
+}
 
-  audio.volume = 0.3;
+.envelope-back {
+  background: linear-gradient(180deg, #d896a3 0%, #f3c6cf 100%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
 
-  function renderProgressBar(activeIdx) {
-    const percent = Math.round(((activeIdx + 1) / SLIDES.length) * 100);
-    dotsIndicator.innerHTML = `
-      <div class="w-20 sm:w-28 h-1.5 bg-stone-200 rounded-full overflow-hidden">
-        <div class="h-full bg-rose-500 rounded-full transition-all duration-300" style="width: ${percent}%"></div>
-      </div>
-    `;
-  }
+.pocket-left {
+  background: linear-gradient(135deg, #ffeef0 0%, #fbd5dc 100%);
+  clip-path: polygon(0 0, 52% 54%, 0 100%);
+  filter: drop-shadow(2px 0 3px rgba(0, 0, 0, 0.06));
+}
 
-  function renderSlide(index) {
-    const item = SLIDES[index];
-    slideContent.style.opacity = "0";
+.pocket-right {
+  background: linear-gradient(225deg, #ffeef0 0%, #fbd5dc 100%);
+  clip-path: polygon(100% 0, 48% 54%, 100% 100%);
+  filter: drop-shadow(-2px 0 3px rgba(0, 0, 0, 0.06));
+}
 
-    setTimeout(() => {
-      if (item.type === "photo") {
-        const photoIndex = SLIDES.slice(0, index + 1).filter(s => s.type === "photo").length;
-        const totalPhotos = SLIDES.filter(s => s.type === "photo").length;
-        slideBadge.textContent = `Recuerdo ${photoIndex} de ${totalPhotos}`;
-      } else {
-        slideBadge.textContent = item.badge;
-      }
+.pocket-bottom {
+  background: linear-gradient(0deg, #fff5f6 0%, #fce0e6 100%);
+  clip-path: polygon(0 100%, 50% 46%, 100% 100%);
+  filter: drop-shadow(0 -3px 5px rgba(136, 19, 55, 0.08));
+}
 
-      memoryCounter.textContent = `${index + 1} / ${SLIDES.length}`;
-      renderProgressBar(index);
+.flap-top {
+  background: linear-gradient(180deg, #f9bac6 0%, #ffdbe2 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s linear 0.35s;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  filter: drop-shadow(0 6px 8px rgba(136, 19, 55, 0.16));
+}
 
-      if (item.type === "letter") {
-        viewPhoto.classList.add("hidden");
-        viewLetter.classList.remove("hidden");
+/* Sello de Lacre */
+.wax-seal {
+  background: radial-gradient(circle at 30% 30%, #e11d48, #9f1239 70%, #881337 100%);
+  box-shadow: 
+    0 6px 14px rgba(136, 19, 55, 0.45),
+    inset 0 2px 3px rgba(255, 255, 255, 0.35),
+    inset 0 -3px 5px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
 
-        letterTitle.textContent = item.title;
-        letterBody.innerHTML = item.paragraphs.map(p => `<p>${p}</p>`).join("");
-        letterSign.textContent = item.signature || "";
-      } else {
-        viewLetter.classList.add("hidden");
-        viewPhoto.classList.remove("hidden");
+.wax-seal:hover {
+  transform: translate(-50%, -50%) scale(1.08);
+}
 
-        memoryImg.src = item.img;
-        // En las fotos mostramos la frase arriba en cursiva y el autor como firma abajo
-        memoryTitle.textContent = item.text;
-        memoryTitle.className = "font-handwriting text-2xl sm:text-[26px] font-bold text-stone-800 leading-snug";
-        memoryText.textContent = `— ${item.title}`;
-        memoryText.className = "text-xs font-bold uppercase tracking-wider text-rose-600 mt-1.5";
-      }
+.wax-inner {
+  border: 2px dashed rgba(255, 228, 230, 0.45);
+}
 
-      btnPrev.disabled = index === 0;
-      btnNext.textContent = index === SLIDES.length - 1 ? "Volver al inicio ↺" : "Siguiente →";
+/* Estados: Cerrado vs Abierto */
+.letter-card {
+  z-index: 10;
+  opacity: 0;
+  transform: translate(-50%, 0) scale(0.85);
+  pointer-events: none;
+  transition: 
+    transform 0.85s cubic-bezier(0.34, 1.45, 0.64, 1) 0.35s,
+    opacity 0.3s ease 0.35s;
+}
 
-      if (isOpen && index === SLIDES.length - 1 && typeof confetti === "function") {
-        confetti({ particleCount: 55, spread: 70, origin: { y: 0.6 } });
-      }
+.envelope-open .flap-top {
+  transform: rotateX(180deg);
+  z-index: 5;
+}
 
-      slideContent.style.opacity = "1";
-    }, 150);
-  }
+.envelope-open .wax-seal {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.5);
+  pointer-events: none;
+}
 
-  function playMusic() {
-    audio.volume = 0.3;
-    audio.play().then(() => {
-      musicStateText.textContent = "Sonando";
-      eqIndicator.classList.remove("opacity-40");
-      eqIndicator.children[0].classList.add("animate-pulse");
-      eqIndicator.children[1].classList.add("animate-ping");
-      eqIndicator.children[2].classList.add("animate-pulse");
-    }).catch(() => {
-      musicStateText.textContent = "Toca para activar";
-    });
-  }
+.envelope-open .letter-card {
+  opacity: 1;
+  z-index: 25;
+  pointer-events: auto;
+  transform: translate(-50%, -125px) scale(1.04);
+}
 
-  function pauseMusic() {
-    audio.pause();
-    musicStateText.textContent = "Música Pausada";
-    eqIndicator.classList.add("opacity-40");
-    Array.from(eqIndicator.children).forEach(bar => {
-      bar.classList.remove("animate-pulse", "animate-ping");
-    });
-  }
+body.is-open #header-titles {
+  transform: translateY(-40px);
+  opacity: 0.85;
+}
 
-  playMusic();
+/* Animación de cierre */
+.envelope-closing .letter-card {
+  opacity: 0 !important;
+  transform: translate(-50%, 0) scale(0.85) !important;
+  transition: transform 0.6s ease-in-out, opacity 0.25s ease 0.35s !important;
+}
 
-  const unlockAudioOnFirstInteraction = () => {
-    if (audio.paused && !userPausedManually) playMusic();
-    document.removeEventListener("click", unlockAudioOnFirstInteraction);
-    document.removeEventListener("touchstart", unlockAudioOnFirstInteraction);
-  };
-  document.addEventListener("click", unlockAudioOnFirstInteraction);
-  document.addEventListener("touchstart", unlockAudioOnFirstInteraction);
+.envelope-closing .flap-top {
+  transform: rotateX(0) !important;
+  z-index: 30 !important;
+  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1) 0.5s, z-index 0s linear 0.5s !important;
+}
 
-  btnToggleMusic.addEventListener("click", (e) => {
-    e.stopPropagation();
-    if (audio.paused) {
-      userPausedManually = false;
-      playMusic();
-    } else {
-      userPausedManually = true;
-      pauseMusic();
-    }
-  });
-
-  function toggleEnvelope() {
-    if (!isOpen) {
-      envelope.classList.remove("envelope-closing");
-      envelope.classList.add("envelope-open");
-      document.body.classList.add("is-open");
-      btnMainAction.textContent = "Cerrar Sobre";
-      isOpen = true;
-
-      if (typeof confetti === "function") {
-        confetti({ particleCount: 75, spread: 65, origin: { y: 0.65 } });
-      }
-
-      if (audio.paused && !userPausedManually) playMusic();
-    } else {
-      envelope.classList.remove("envelope-open");
-      envelope.classList.add("envelope-closing");
-      document.body.classList.remove("is-open");
-      btnMainAction.textContent = "Abrir Sobre";
-      isOpen = false;
-    }
-  }
-
-  btnPrev.addEventListener("click", () => {
-    if (currentIndex > 0) {
-      currentIndex--;
-      renderSlide(currentIndex);
-    }
-  });
-
-  btnNext.addEventListener("click", () => {
-    if (currentIndex < SLIDES.length - 1) {
-      currentIndex++;
-    } else {
-      currentIndex = 0;
-    }
-    renderSlide(currentIndex);
-  });
-
-  waxSeal.addEventListener("click", toggleEnvelope);
-  btnMainAction.addEventListener("click", toggleEnvelope);
-
-  renderSlide(currentIndex);
-});
+.envelope-closing .wax-seal {
+  opacity: 1 !important;
+  transform: translate(-50%, -50%) scale(1) !important;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 1.05s, opacity 0.3s ease 1.05s !important;
+  pointer-events: auto !important;
+}
