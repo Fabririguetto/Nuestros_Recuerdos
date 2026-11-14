@@ -132,6 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const viewPhoto = document.getElementById("view-photo");
   const memoryImg = document.getElementById("memory-img");
+  const memoryImgBg = document.getElementById("memory-img-bg");
   const memoryTitle = document.getElementById("memory-title");
   const memoryText = document.getElementById("memory-text");
 
@@ -183,6 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
         viewPhoto.classList.remove("hidden");
 
         memoryImg.src = item.img;
+        if (memoryImgBg) memoryImgBg.src = item.img;
         memoryTitle.textContent = item.text;
         memoryTitle.className = "font-handwriting text-xl sm:text-2xl font-bold text-stone-800 leading-snug";
         memoryText.textContent = `— ${item.title}`;
