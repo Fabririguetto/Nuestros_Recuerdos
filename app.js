@@ -75,7 +75,6 @@ const SLIDES = [
     text: "“Brindo por las noches que me das, por tu mirada infinita.”",
     img: "./assets/foto10.jpeg"
   },
-
   {
     type: "photo",
     title: "Soda Stereo",
@@ -116,6 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const waxSeal = document.getElementById("wax-seal");
   const btnMainAction = document.getElementById("btn-main-action");
   
+  const letterCard = document.getElementById("letter-card");
   const slideContent = document.getElementById("slide-content");
   const slideBadge = document.getElementById("slide-badge");
   const memoryCounter = document.getElementById("memory-counter");
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderProgressBar(activeIdx) {
     const percent = Math.round(((activeIdx + 1) / SLIDES.length) * 100);
     dotsIndicator.innerHTML = `
-      <div class="w-20 sm:w-28 h-1.5 bg-stone-200 rounded-full overflow-hidden">
+      <div class="w-16 sm:w-28 h-1.5 bg-stone-200 rounded-full overflow-hidden">
         <div class="h-full bg-rose-500 rounded-full transition-all duration-300" style="width: ${percent}%"></div>
       </div>
     `;
@@ -181,11 +181,10 @@ document.addEventListener("DOMContentLoaded", () => {
         viewPhoto.classList.remove("hidden");
 
         memoryImg.src = item.img;
-        // En las fotos mostramos la frase arriba en cursiva y el autor como firma abajo
         memoryTitle.textContent = item.text;
-        memoryTitle.className = "font-handwriting text-2xl sm:text-[26px] font-bold text-stone-800 leading-snug";
+        memoryTitle.className = "font-handwriting text-xl sm:text-2xl font-bold text-stone-800 leading-snug";
         memoryText.textContent = `— ${item.title}`;
-        memoryText.className = "text-xs font-bold uppercase tracking-wider text-rose-600 mt-1.5";
+        memoryText.className = "text-[11px] sm:text-xs font-bold uppercase tracking-wider text-rose-600 mt-1 sm:mt-1.5";
       }
 
       btnPrev.disabled = index === 0;
@@ -229,7 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.removeEventListener("touchstart", unlockAudioOnFirstInteraction);
   };
   document.addEventListener("click", unlockAudioOnFirstInteraction);
-  document.addEventListener("touchstart", unlockAudioOnFirstInteraction);
+  document.addEventListener("touchstart", unlockAudioOnFirstInteraction, { passive: true });
 
   btnToggleMusic.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -264,20 +263,58 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  btnPrev.addEventListener("click", () => {
+  function prevSlide() {
     if (currentIndex > 0) {
       currentIndex--;
       renderSlide(currentIndex);
     }
-  });
+  }
 
-  btnNext.addEventListener("click", () => {
+  function nextSlide() {
     if (currentIndex < SLIDES.length - 1) {
       currentIndex++;
     } else {
       currentIndex = 0;
     }
     renderSlide(currentIndex);
+  }
+
+  btnPrev.addEventListener("click", prevSlide);
+  btnNext.addEventListener("click", nextSlide);
+
+  // Soporte para gestos táctiles (Swipe) en mobile
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  if (letterCard) {
+    letterCard.addEventListener("touchstart", (e) => {
+      if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    letterCard.addEventListener("touchend", (e) => {
+      if (!isOpen || e.changedTouches.length !== 1) return;
+      const diffX = e.changedTouches[0].clientX - touchStartX;
+      const diffY = e.changedTouches[0].clientY - touchStartY;
+
+      // Si el movimiento es predominantemente horizontal (> 40px)
+      if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY) * 1.4) {
+        if (diffX < 0) {
+          nextSlide(); // Swipe izquierda -> siguiente
+        } else {
+          prevSlide(); // Swipe derecha -> anterior
+        }
+      }
+    }, { passive: true });
+  }
+
+  // Soporte para flechas del teclado en desktop
+  document.addEventListener("keydown", (e) => {
+    if (!isOpen) return;
+    if (e.key === "ArrowRight") nextSlide();
+    if (e.key === "ArrowLeft") prevSlide();
   });
 
   waxSeal.addEventListener("click", toggleEnvelope);

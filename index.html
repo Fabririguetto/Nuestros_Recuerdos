@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
   <title>Sobre Interactivo de Recuerdos</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,17 +11,17 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   <link rel="stylesheet" href="./styles.css">
 </head>
-<body class="theme-0 flex flex-col items-center justify-between py-8 px-4 relative min-h-screen text-stone-800 select-none">
+<body class="theme-0 flex flex-col items-center justify-between py-4 sm:py-8 px-3 sm:px-4 relative min-h-screen text-stone-800 select-none">
 
   <!-- Barra Superior: Control de Música -->
   <header class="w-full max-w-5xl flex items-center justify-end z-50">
-    <div class="flex items-center gap-2 bg-white/85 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-sm border border-white/60">
+    <div class="flex items-center gap-1.5 sm:gap-2 bg-white/85 backdrop-blur-md px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full shadow-sm border border-white/60">
       <div id="eq-indicator" class="flex items-end gap-0.5 h-3.5 w-3.5 opacity-40 transition-opacity">
         <span class="w-1 bg-rose-500 rounded-full h-2"></span>
         <span class="w-1 bg-rose-500 rounded-full h-3.5"></span>
         <span class="w-1 bg-rose-500 rounded-full h-1.5"></span>
       </div>
-      <button id="btn-toggle-music" class="text-xs font-semibold px-1.5 py-1 text-stone-700 hover:text-rose-600 transition">
+      <button id="btn-toggle-music" class="text-xs font-semibold px-1.5 py-0.5 sm:py-1 text-stone-700 hover:text-rose-600 transition touch-manipulation">
         ♫ <span id="music-state-text">Cargando música...</span>
       </button>
       <audio id="local-audio" loop preload="auto" playsinline class="hidden" src="./assets/musica.mp3"></audio>
@@ -29,34 +29,34 @@
   </header>
 
   <!-- Área Central -->
-  <div class="flex flex-col items-center justify-center w-full max-w-lg my-auto pt-4 pb-6">
+  <div class="flex flex-col items-center justify-center w-full max-w-lg my-auto pt-2 sm:pt-4 pb-3 sm:pb-6">
     
     <!-- Título Principal -->
-    <div id="header-titles" class="text-center mb-10 transition-all duration-700">
-      <h1 class="text-title text-3xl md:text-4xl font-extrabold tracking-tight text-stone-900 drop-shadow-sm">
+    <div id="header-titles" class="text-center mb-6 sm:mb-10">
+      <h1 class="text-title text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-stone-900 drop-shadow-sm">
         Un Sobre Especial Para Ti
       </h1>
-      <p class="text-title text-sm md:text-base text-stone-800/75 mt-1.5 font-medium">
+      <p class="text-title text-xs sm:text-sm md:text-base text-stone-800/75 mt-1 sm:mt-1.5 font-medium">
         Toca el sello de lacre para abrir tus recuerdos
       </p>
     </div>
 
     <!-- Contenedor del Sobre 3D -->
-    <main class="envelope-wrapper relative w-[335px] sm:w-[410px] h-[235px] sm:h-[265px] flex items-center justify-center">
-      <div id="envelope" class="envelope-body relative w-full h-full rounded-2xl shadow-[0_25px_50px_-12px_rgba(0,0,0,0.28)]">
+    <main class="envelope-wrapper relative w-[min(92vw,340px)] sm:w-[410px] h-[220px] sm:h-[265px] flex items-center justify-center">
+      <div id="envelope" class="envelope-body relative w-full h-full rounded-2xl shadow-[0_20px_45px_-10px_rgba(0,0,0,0.25)] sm:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.28)]">
         
         <!-- 1. Fondo interior del sobre -->
         <div class="envelope-back absolute inset-0 rounded-2xl z-0"></div>
 
         <!-- 2. Tarjeta Dinámica (Soporta Carta Inicial, Fotos y Carta Final) -->
-        <article id="letter-card" class="letter-card polaroid-box absolute left-1/2 -translate-x-1/2 bottom-3 w-[92%] bg-[#fffdfa] p-4 sm:p-5 rounded-xl shadow-xl border border-stone-200/90 text-center">
+        <article id="letter-card" class="letter-card polaroid-box absolute left-1/2 -translate-x-1/2 bottom-2.5 sm:bottom-3 w-[93%] bg-[#fffdfa] p-3 sm:p-5 rounded-xl shadow-xl border border-stone-200/90 text-center touch-pan-y">
           
           <!-- Badge superior de paso -->
-          <div class="flex justify-between items-center mb-2">
-            <span id="slide-badge" class="text-[10px] uppercase tracking-wider font-bold text-rose-500 bg-rose-50 px-2.5 py-0.5 rounded-full">
+          <div class="flex justify-between items-center mb-1.5 sm:mb-2">
+            <span id="slide-badge" class="text-[10px] uppercase tracking-wider font-bold text-rose-500 bg-rose-50 px-2 sm:px-2.5 py-0.5 rounded-full">
               Carta Inicial
             </span>
-            <span id="memory-counter" class="text-[11px] font-bold text-stone-400">
+            <span id="memory-counter" class="text-[10px] sm:text-[11px] font-bold text-stone-400">
               1 / 15
             </span>
           </div>
@@ -65,30 +65,30 @@
           <div id="slide-content" class="transition-opacity duration-200">
             
             <!-- VISTA TIPO CARTA (Inicio y Final) -->
-            <div id="view-letter" class="hidden py-3 px-2 bg-amber-50/40 rounded-lg border border-amber-200/50 text-left">
-              <h2 id="letter-title" class="font-handwriting text-3xl font-bold text-rose-700 mb-2 text-center"></h2>
-              <div id="letter-body" class="text-xs sm:text-sm text-stone-700 leading-relaxed space-y-2 max-h-[185px] overflow-y-auto pr-1 custom-scroll"></div>
-              <p id="letter-sign" class="font-handwriting text-2xl text-right text-stone-800 mt-3"></p>
+            <div id="view-letter" class="hidden py-2.5 sm:py-3 px-2 sm:px-2.5 bg-amber-50/40 rounded-lg border border-amber-200/50 text-left">
+              <h2 id="letter-title" class="font-handwriting text-2xl sm:text-3xl font-bold text-rose-700 mb-1.5 sm:mb-2 text-center"></h2>
+              <div id="letter-body" class="text-xs sm:text-sm text-stone-700 leading-relaxed space-y-1.5 sm:space-y-2 max-h-[145px] sm:max-h-[185px] overflow-y-auto pr-1 custom-scroll"></div>
+              <p id="letter-sign" class="font-handwriting text-xl sm:text-2xl text-right text-stone-800 mt-2 sm:mt-3"></p>
             </div>
 
             <!-- VISTA TIPO FOTO POLAROID -->
             <div id="view-photo" class="hidden">
-              <div class="aspect-[16/10] w-full overflow-hidden rounded-lg bg-stone-100 mb-3 relative shadow-inner">
+              <div class="aspect-[16/10] max-h-[150px] sm:max-h-[210px] w-full overflow-hidden rounded-lg bg-stone-100 mb-2 sm:mb-3 relative shadow-inner">
                 <img id="memory-img" src="" alt="Recuerdo" class="w-full h-full object-cover">
               </div>
-              <h2 id="memory-title" class="font-handwriting text-2xl sm:text-3xl font-bold text-stone-800 leading-none"></h2>
-              <p id="memory-text" class="text-xs sm:text-sm text-stone-600 mt-2 leading-relaxed"></p>
+              <h2 id="memory-title" class="font-handwriting text-xl sm:text-2xl font-bold text-stone-800 leading-snug"></h2>
+              <p id="memory-text" class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-rose-600 mt-1 sm:mt-1.5"></p>
             </div>
 
           </div>
 
           <!-- Controles de navegación -->
-          <div class="flex items-center justify-between mt-3.5 pt-2.5 border-t border-stone-200/70">
-            <button id="btn-prev" class="text-xs font-bold text-rose-600 hover:bg-rose-50 px-2.5 py-1 rounded-full transition disabled:opacity-30 disabled:pointer-events-none">
+          <div class="flex items-center justify-between mt-2.5 sm:mt-3.5 pt-2 sm:pt-2.5 border-t border-stone-200/70">
+            <button id="btn-prev" class="text-xs font-bold text-rose-600 hover:bg-rose-50 px-2 sm:px-3 py-1.5 rounded-full transition disabled:opacity-30 disabled:pointer-events-none active:scale-95 touch-manipulation">
               ← Anterior
             </button>
-            <div id="dots-indicator" class="flex gap-1.5"></div>
-            <button id="btn-next" class="text-xs font-bold text-rose-600 hover:bg-rose-50 px-2.5 py-1 rounded-full transition">
+            <div id="dots-indicator" class="flex items-center gap-1.5"></div>
+            <button id="btn-next" class="text-xs font-bold text-rose-600 hover:bg-rose-50 px-2 sm:px-3 py-1.5 rounded-full transition active:scale-95 touch-manipulation">
               Siguiente →
             </button>
           </div>
@@ -103,8 +103,8 @@
         <div class="flap-top absolute top-0 left-0 w-full h-[62%] z-30 pointer-events-none"></div>
 
         <!-- 5. Sello de Lacre con relieve -->
-        <button id="wax-seal" aria-label="Abrir sobre" class="wax-seal absolute top-[54%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 w-16 h-16 rounded-full flex items-center justify-center cursor-pointer group">
-          <span class="wax-inner w-12 h-12 rounded-full flex items-center justify-center text-rose-100 text-xl drop-shadow">
+        <button id="wax-seal" aria-label="Abrir sobre" class="wax-seal absolute top-[54%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 w-14 sm:w-16 h-14 sm:h-16 rounded-full flex items-center justify-center cursor-pointer group touch-manipulation">
+          <span class="wax-inner w-10 sm:w-12 h-10 sm:h-12 rounded-full flex items-center justify-center text-rose-100 text-lg sm:text-xl drop-shadow">
             ❤
           </span>
         </button>
@@ -113,7 +113,7 @@
     </main>
 
     <!-- Botón 3D Principal -->
-    <div class="mt-12 z-30">
+    <div class="mt-6 sm:mt-10 z-30">
       <button id="btn-main-action" class="push-btn-3d">
         Abrir Sobre
       </button>
@@ -121,7 +121,7 @@
 
   </div>
 
-  <footer class="text-title text-xs opacity-60 font-medium">
+  <footer class="text-title text-[11px] sm:text-xs opacity-60 font-medium py-1">
     Hecho con cariño ✨
   </footer>
 
