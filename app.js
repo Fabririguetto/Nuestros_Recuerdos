@@ -9,9 +9,10 @@ const SLIDES = [
     title: "Para Ti, Con Todo Mi Cariño",
     paragraphs: [
       "Quise armar este pequeño rincón digital para guardar algunos de nuestros momentos favoritos.",
-      "Cada una de estas fotos tiene una canción, una historia y una sonrisa detrás. Desliza para recorrerlos juntos..."
+      "Cada una de estas fotos tiene una canción, una historia y una sonrisa detrás.",
+      "feliz cumpleaños, mi amor. Que este sea solo otro capítulo de nuestra historia juntos."
     ],
-    signature: "Con amor ❤️"
+    signature: "Con amor ❤️ Mauri"
   },
 
   // --- LAS 13 FOTOS CON SUS FRASES Y AUTORES ---
@@ -101,7 +102,8 @@ const SLIDES = [
     title: "Por Muchos Más Capítulos",
     paragraphs: [
       "Gracias por ser parte de mi vida y por cada momento compartido.",
-      "Este sobre se cierra, pero nuestra historia sigue sumando recuerdos todos los días. ¡Te quiero muchísimo!"
+      "Este sobre se cierra, pero nuestra historia sigue sumando recuerdos todos los días. ¡Te amo muchísimo!",
+      "Felices 27"
     ],
     signature: "Siempre juntos ✨"
   }
